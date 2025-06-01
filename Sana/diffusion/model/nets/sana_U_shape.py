@@ -153,8 +153,8 @@ class SanaUBlock(nn.Module):
 
 #############################################################################
 #                                 Core SanaU Model                                #
-#################################################################################
-@MODELS.register_module()
+##################################################################################
+#@MODELS.register_module()
 class SanaU(Sana):
     """
     Diffusion model with a Transformer backbone.
@@ -352,28 +352,28 @@ class SanaU(Sana):
 #################################################################################
 #                                 SanaU Configs                                 #
 #################################################################################
-@MODELS.register_module()
+#@MODELS.register_module()
 def SanaU_600M_P1_D28(**kwargs):
     return SanaU(depth=28, hidden_size=1152, patch_size=1, num_heads=16, **kwargs)
 
 
-@MODELS.register_module()
+#@MODELS.register_module()
 def SanaU_600M_P2_D28(**kwargs):
     return SanaU(depth=28, hidden_size=1152, patch_size=2, num_heads=16, **kwargs)
 
 
-@MODELS.register_module()
+#@MODELS.register_module()
 def SanaU_600M_P4_D28(**kwargs):
     return SanaU(depth=28, hidden_size=1152, patch_size=4, num_heads=16, **kwargs)
 
 
-@MODELS.register_module()
+#@MODELS.register_module()
 def SanaU_1600M_P1_D20(**kwargs):
     # 20 layers, 1648.48M
     return SanaU(depth=20, hidden_size=2240, patch_size=1, num_heads=20, **kwargs)
 
 
-@MODELS.register_module()
+#@MODELS.register_module()
 def SanaU_1600M_P2_D20(**kwargs):
     # 28 layers, 1648.48M
     return SanaU(depth=20, hidden_size=2240, patch_size=2, num_heads=20, **kwargs)

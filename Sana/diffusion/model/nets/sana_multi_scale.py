@@ -150,7 +150,7 @@ class SanaMSBlock(nn.Module):
 #############################################################################
 #                                 Core Sana Model                                #
 #################################################################################
-@MODELS.register_module()
+#@MODELS.register_module()
 class SanaMS(Sana):
     """
     Diffusion model with a Transformer backbone.
@@ -452,61 +452,61 @@ class SanaMSCM(SanaMS):
 #################################################################################
 
 
-@MODELS.register_module()
+#@MODELS.register_module()
 def SanaMS_600M_P1_D28(**kwargs):
     return SanaMS(depth=28, hidden_size=1152, patch_size=1, num_heads=16, **kwargs)
 
 
-@MODELS.register_module()
+#@MODELS.register_module()
 def SanaMS_600M_P2_D28(**kwargs):
     return SanaMS(depth=28, hidden_size=1152, patch_size=2, num_heads=16, **kwargs)
 
 
-@MODELS.register_module()
+#@MODELS.register_module()
 def SanaMS_600M_P4_D28(**kwargs):
     return SanaMS(depth=28, hidden_size=1152, patch_size=4, num_heads=16, **kwargs)
 
 
-@MODELS.register_module()
+#@MODELS.register_module()
 def SanaMS_1600M_P1_D20(**kwargs):
     # 20 layers, 1648.48M
     return SanaMS(depth=20, hidden_size=2240, patch_size=1, num_heads=20, **kwargs)
 
 
-@MODELS.register_module()
+#@MODELS.register_module()
 def SanaMS_1600M_P2_D20(**kwargs):
     # 28 layers, 1648.48M
     return SanaMS(depth=20, hidden_size=2240, patch_size=2, num_heads=20, **kwargs)
 
 
-@MODELS.register_module()
+#@MODELS.register_module()
 def SanaMS_2400M_P1_D30(**kwargs):
     return SanaMS(depth=30, hidden_size=2240, patch_size=1, num_heads=20, **kwargs)
 
 
-@MODELS.register_module()
+#@MODELS.register_module()
 def SanaMS_3200M_P1_D40(**kwargs):
     return SanaMS(depth=40, hidden_size=2240, patch_size=1, num_heads=20, **kwargs)
 
 
-@MODELS.register_module()
+#@MODELS.register_module()
 def SanaMS_4800M_P1_D60(**kwargs):
     # 60 layers, 4800M
     return SanaMS(depth=60, hidden_size=2240, patch_size=1, num_heads=20, **kwargs)
 
 
 # TrigFlow/sCM model
-@MODELS.register_module()
+#@MODELS.register_module()
 def SanaMSCM_600M_P1_D28(**kwargs):
     return SanaMSCM(depth=28, hidden_size=1152, patch_size=1, num_heads=16, **kwargs)
 
 
-@MODELS.register_module()
+#@MODELS.register_module()
 def SanaMSCM_1600M_P1_D20(**kwargs):
     return SanaMSCM(depth=20, hidden_size=2240, patch_size=1, num_heads=20, **kwargs)
 
 
-@MODELS.register_module()
+#@MODELS.register_module()
 def SanaMSCM_2400M_P1_D30(**kwargs):
     # 30 layers, 2400M
     return SanaMSCM(depth=30, hidden_size=2240, patch_size=1, num_heads=20, **kwargs)

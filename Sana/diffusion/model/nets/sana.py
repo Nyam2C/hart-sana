@@ -22,9 +22,9 @@ import torch
 import torch.nn as nn
 from timm.models.layers import DropPath
 
-from diffusion.model.builder import MODELS
-from diffusion.model.nets.basic_modules import DWMlp, GLUMBConv, MBConvPreGLU, Mlp
-from diffusion.model.nets.sana_blocks import (
+from Sana.diffusion.model.builder import MODELS
+from Sana.diffusion.model.nets.basic_modules import DWMlp, GLUMBConv, MBConvPreGLU, Mlp
+from Sana.diffusion.model.nets.sana_blocks import (
     Attention,
     CaptionEmbedder,
     FlashAttention,
@@ -37,15 +37,15 @@ from diffusion.model.nets.sana_blocks import (
     TimestepEmbedder,
     t2i_modulate,
 )
-from diffusion.model.norms import RMSNorm
-from diffusion.model.utils import auto_grad_checkpoint, to_2tuple
-from diffusion.utils.dist_utils import get_rank
-from diffusion.utils.import_utils import is_triton_module_available
-from diffusion.utils.logger import get_root_logger
+from Sana.diffusion.model.norms import RMSNorm
+from Sana.diffusion.model.utils import auto_grad_checkpoint, to_2tuple
+from Sana.diffusion.utils.dist_utils import get_rank
+from Sana.diffusion.utils.import_utils import is_triton_module_available
+from Sana.diffusion.utils.logger import get_root_logger
 
 _triton_modules_available = False
 if is_triton_module_available():
-    from diffusion.model.nets.fastlinear.modules import TritonLiteMLA, TritonMBConvPreGLU
+    from Sana.diffusion.model.nets.fastlinear.modules import TritonLiteMLA, TritonMBConvPreGLU
 
     _triton_modules_available = True
 
@@ -157,7 +157,7 @@ class SanaBlock(nn.Module):
 #############################################################################
 #                                 Core Sana Model                                #
 #################################################################################
-@MODELS.register_module()
+#@MODELS.register_module()
 class Sana(nn.Module):
     """
     Diffusion model with a Transformer backbone.
@@ -443,12 +443,12 @@ def get_1d_sincos_pos_embed_from_grid(embed_dim, pos):
 #################################################################################
 #                                   Sana Configs                              #
 #################################################################################
-@MODELS.register_module()
+#@MODELS.register_module()
 def Sana_600M_P1_D28(**kwargs):
     return Sana(depth=28, hidden_size=1152, patch_size=1, num_heads=16, **kwargs)
 
 
-@MODELS.register_module()
+#@MODELS.register_module()
 def Sana_1600M_P1_D20(**kwargs):
     # 20 layers, 1648.48M
     return Sana(depth=20, hidden_size=2240, patch_size=1, num_heads=20, **kwargs)

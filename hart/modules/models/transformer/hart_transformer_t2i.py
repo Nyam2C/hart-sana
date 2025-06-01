@@ -14,6 +14,7 @@ import torch
 import torch.nn as nn
 from huggingface_hub import PyTorchModelHubMixin
 from transformers import AutoConfig, AutoModel, PreTrainedModel
+from Sana.app.sana_sprint_pipeline import SanaSprintPipeline
 
 from hart.modules.diffusion.diffloss import DiffLoss
 from hart.modules.models.autoencoder import (
@@ -269,16 +270,10 @@ class HARTForT2I(PreTrainedModel):
 
         self.decoder_norm = norm_layer(self.C)
         # self.diffusion_pos_embed_learned = nn.Parameter(torch.zeros(1, self.last_level_pns, self.C))
-
-        self.diffloss = DiffLoss(
-            target_channels=self.Cvae,
-            z_channels=self.C,
-            width=config.diff_width,
-            depth=config.diff_depth,
-            num_sampling_steps=config.num_sampling_steps,
-            sampler=config.sampler,
-        )
-
+        
+        self.sana = SanaSprintPipeline("Sana/configs/sana_sprint_config/1024ms/SanaSprint_1600M_1024px_allqknorm_bf16_scm_ladd.yaml")
+        self.sana = sana.from_pretrained("hf://Efficient-Large-Model/Sana_Sprint_1.6B_1024px/checkpoints/Sana_Sprint_1.6B_1024px.pth")
+        
     def get_logits(
         self,
         h_or_h_and_residual: Union[torch.Tensor, Tuple[torch.Tensor, torch.Tensor]],
@@ -505,20 +500,8 @@ class HARTForT2I(PreTrainedModel):
                 last_stage_cond = self.decoder_norm(
                     last_layer_cond + last_stage_discrete_cond
                 )
-                bs, cur_seq_len, _ = last_stage_cond.shape
-                ##### begin baseline sampling #####
-                h_BChw_diff = self.diffloss.sample(
-                    z=last_stage_cond, temperature=1.0, cfg=t
-                )
-                ##### end baseline sampling #####
-                h_BChw_diff = h_BChw_diff.reshape(bs, cur_seq_len, -1)
-                # [B, L, Cvae]
-                h_BChw_diff, _ = h_BChw_diff.chunk(2, dim=0)
-                print("dtypes:", tokens.dtype, h_BChw.dtype, h_BChw_diff.dtype)
-                # update feature map
-                tokens[mask_to_pred] = (h_BChw + h_BChw_diff).reshape(-1, self.Cvae).float()
-            else:
-                tokens[mask_to_pred] = h_BChw.reshape(-1, self.Cvae)
+                print(last_stage_cond)
+               
             
         h_BChw_final = tokens.transpose(1, 2).reshape(
             B, self.Cvae, self.patch_nums[-1], self.patch_nums[-1]

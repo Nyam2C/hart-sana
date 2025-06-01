@@ -28,13 +28,13 @@ warnings.filterwarnings("ignore")  # ignore warning
 os.environ["DISABLE_XFORMERS"] = "1"
 
 
-from diffusion import SCMScheduler
-from diffusion.data.datasets.utils import ASPECT_RATIO_512_TEST, ASPECT_RATIO_1024_TEST
-from diffusion.model.builder import build_model, get_tokenizer_and_text_encoder, get_vae, vae_decode
-from diffusion.model.utils import get_weight_dtype, prepare_prompt_ar, resize_and_crop_tensor
-from diffusion.utils.config import SanaConfig, model_init_config
-from diffusion.utils.logger import get_root_logger
-from tools.download import find_model
+from Sana.diffusion import SCMScheduler
+from Sana.diffusion.data.datasets.utils import ASPECT_RATIO_512_TEST, ASPECT_RATIO_1024_TEST
+from Sana.diffusion.model.builder import build_model, get_tokenizer_and_text_encoder, get_vae, vae_decode
+from Sana.diffusion.model.utils import get_weight_dtype, prepare_prompt_ar, resize_and_crop_tensor
+from Sana.diffusion.utils.config import SanaConfig, model_init_config
+from Sana.diffusion.utils.logger import get_root_logger
+from Sana.tools.download import find_model
 
 
 def classify_height_width_bin(height: int, width: int, ratios: dict) -> Tuple[int, int]:
@@ -101,7 +101,6 @@ class SanaSprintPipeline(nn.Module):
 
         # 1. build vae and text encoder
         self.vae = self.build_vae(config.vae)
-        self.tokenizer, self.text_encoder = self.build_text_encoder(config.text_encoder)
 
         # 2. build Sana model
         self.model = self.build_sana_model(config).to(self.device)

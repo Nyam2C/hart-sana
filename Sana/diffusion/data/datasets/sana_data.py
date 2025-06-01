@@ -33,7 +33,7 @@ from diffusion.data.wids import ShardListDataset, ShardListDatasetMulti, lru_jso
 from diffusion.utils.logger import get_root_logger
 
 
-@DATASETS.register_module()
+#@DATASETS.register_module()
 class SanaImgDataset(torch.utils.data.Dataset):
     def __init__(
         self,
@@ -218,7 +218,7 @@ class SanaImgDataset(torch.utils.data.Dataset):
         return sampled_label, original_weight
 
 
-@DATASETS.register_module()
+#@DATASETS.register_module()
 class SanaWebDataset(torch.utils.data.Dataset):
     def __init__(
         self,

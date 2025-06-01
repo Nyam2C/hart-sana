@@ -78,7 +78,7 @@ class ControlSanaMSBlock(Module):
         return control_signal, control_signal_skip
 
 
-@MODELS.register_module()
+#@MODELS.register_module()
 class SanaMSControlNet(SanaMS):
     """
     Sana with ControlNet
@@ -290,11 +290,11 @@ class SanaMSControlNet(SanaMS):
 #################################################################################
 
 
-@MODELS.register_module()
+#@MODELS.register_module()
 def SanaMSControlNet_600M_P1_D28(**kwargs):
     return SanaMSControlNet(depth=28, hidden_size=1152, patch_size=1, num_heads=16, **kwargs)
 
 
-@MODELS.register_module()
+#@MODELS.register_module()
 def SanaMSControlNet_1600M_P1_D20(**kwargs):
     return SanaMSControlNet(depth=20, hidden_size=2240, patch_size=1, num_heads=20, **kwargs)

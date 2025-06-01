@@ -36,7 +36,7 @@ def get_closest_ratio(height: float, width: float, ratios: dict):
     return ratios[closest_ratio], float(closest_ratio)
 
 
-@DATASETS.register_module()
+#@DATASETS.register_module()
 class SanaWebDatasetMS(SanaWebDataset):
     def __init__(
         self,
@@ -208,7 +208,7 @@ class SanaWebDatasetMS(SanaWebDataset):
         return len(self.dataset)
 
 
-@DATASETS.register_module()
+#@DATASETS.register_module()
 class DummyDatasetMS(SanaWebDatasetMS):
     def __init__(self, **kwargs):
         self.base_size = int(kwargs["aspect_ratio_type"].split("_")[-1])

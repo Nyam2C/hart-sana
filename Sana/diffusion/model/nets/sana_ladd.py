@@ -23,7 +23,7 @@ from .ladd_blocks import DiscHead
 from .sana_multi_scale import SanaMSCM
 
 
-@MODELS.register_module()
+#MODELS.register_module()
 class SanaMSCMDiscriminator(nn.Module):
     def __init__(self, pretrained_model: SanaMSCM, is_multiscale=False, head_block_ids=None):
         super().__init__()

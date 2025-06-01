@@ -15,8 +15,8 @@
 # SPDX-License-Identifier: Apache-2.0
 
 import torch
-from diffusers import AutoencoderDC
-from diffusers.models import AutoencoderKL
+from diffusers.models.autoencoders import AutoencoderKL
+from diffusers.models.autoencoders import AutoencoderDC
 from mmcv import Registry
 from termcolor import colored
 from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig, T5EncoderModel, T5Tokenizer
